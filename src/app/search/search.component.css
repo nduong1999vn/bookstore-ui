@@ -1,0 +1,8 @@
+.hide-text-overflow {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+img {
+    object-fit: fill;
+}

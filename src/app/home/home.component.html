@@ -1,0 +1,49 @@
+<hr class="tall">
+
+<div class="row">
+    <div class="col-md-6">
+    </div>
+    <div class="col-md-6">
+        <form [formGroup]="form" (ngSubmit)="submitForm()">
+            <div class="input-group">
+                <input class="form-control" placeholder="Search Products..." formControlName="keyword" type="text">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary btn-lg"><i class="icon icon-search"></i></button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr class="tall">
+
+<div class="col-md-10 col-md-offset-1">
+    <div class="row">
+        <ul style="list-style: none;" class="products product-thumb-info-list">
+            <ng-container *ngFor="let b of books">
+                <li class="col-md-3 product">   
+                    <span class="product-thumb-info">
+                        <button [routerLink]="['/book', b.id]">
+                            <span class="product-thumb-info-image">
+                                <span class="product-thumb-info-act">
+                                    <span class="product-thumb-info-act-right"><em>Xem Chi tiết</em></span>
+                                </span>
+                                <img alt="" style="width: auto; max-height: 80%;" class="img-responsive book-list-thumb" src="{{bookURL + b.image}}">
+                            </span>
+                        </button>
+                        <span class="product-thumb-info-content">
+
+                            <h4 class="hide-text-overflow">{{ b.title }}</h4>
+                            <span class="price">
+                                <ins><span class="amount text-danger">{{ b.price + ' VND' }}</span></ins>
+                            </span>
+
+                        </span>
+                    </span>
+                    <br>
+                </li>
+            </ng-container>
+        </ul>
+    </div>
+</div>
+

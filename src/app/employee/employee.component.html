@@ -1,0 +1,24 @@
+<div mat-card style="padding: 13px;">
+    <hr class="tall">
+    <div class="container">
+        <h4>Quản lý người dùng</h4>
+        <table class="table table-bordered">
+            <tr class="table-bordered">
+                <td class="text-center" width="10%" scope="col"><strong>ID</strong></td>
+                <td class="text-center table-bordered" scope="col"><strong>Username</strong></td>
+                <td class="text-center table-bordered" scope="col"><strong>Role</strong></td>
+                <td width="50px" class="text-center" scope="col"><strong>Delete</strong></td>
+            </tr>
+            <ng-container *ngFor="let emp of employees">
+                <tr class="table-bordered">
+                    <td class="text-center"> {{emp.id}} </td>
+                    <td class="text-center table-bordered"><button class="btn btn-link" [routerLink]="['/admin/users', emp.id]">{{emp.username}}</button> </td>
+                    <td class="text-center table-bordered"> {{emp.roles.name}} </td>
+                    <td width="50px" class="text-center"> <button (click)="deleteEmployee(emp)" class='delUser icon icon-trash-o'></button> </td>
+                </tr>
+            </ng-container>  
+        </table>
+        <button class="btn btn-primary" style="float: right;" [routerLink]="['/admin/add']">Add User</button>
+    </div>
+</div>
+

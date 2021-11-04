@@ -1,0 +1,41 @@
+<div role="main" class="main">
+    <hr class="tall">
+    <div class="container">
+
+        <div class="col-md-12">
+            <div *ngIf="user" class="row">
+                <form [formGroup]="form" (ngSubmit)="submitForm()">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Profile:</label>
+                        </div>
+                        <img class="img-thumbnail img-thumbnail-medium img-responsive" alt="" src="{{avatarURL + 'default.jpg'}}">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Username:</label>
+                                <input type="text" name="username" formControlName="username" class="form-control" [defaultValue]="user.username" readonly="true">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Password:</label>
+                                <input type="password" name="password" formControlName="password" class="form-control">
+                                <p *ngIf="form.get('password').hasError('required')" style="color: red;"> Password is required </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <input type="hidden" name="role" formControlName="role" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <input type="submit" value="Submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

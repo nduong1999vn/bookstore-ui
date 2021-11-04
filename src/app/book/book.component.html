@@ -1,0 +1,82 @@
+<hr class="tall">
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-4">
+            <img src="{{bookURL + book.image}}" class="img-thumbnail img-thumbnail-book-lage img-responsive">
+        </div>
+        <div class="col-md-8">
+            <h3>{{ book.title }}</h3>
+            <h4>{{ book.price + ' VND' }}</h4>
+            <p>{{ book.description }}</p>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="tabs tabs-product">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab">Nhận xét</a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active">
+                    <!--list comment-->
+                    <ul class="comments"> 
+                        <ng-container *ngFor="let cmt of book.comments">
+                            <li>
+                                <div class="comment">
+                                    <div class="img-thumbnail">
+                                        <img class="avatar img-thumbnail-small" alt="" src="{{avatarURL + 'default.jpg'}}">
+                                    </div>
+                                    <div class="comment-block">
+                                        <div class="comment-arrow"></div>
+                                        <span class="comment-by">
+                                            <strong>{{ cmt.user.username }}</strong>
+                                            <div *ngIf="isCommentAuthor(cmt.user.username) || loginService.isUserAdmin()">
+                                                <span class="pull-right">
+                                                    <button (click)="deleteComment(cmt.id, cmt.user.username)" class='delComment icon icon-trash-o'></button>
+                                                </span>
+                                            </div>
+                                        </span>
+                                        <p>{{ cmt.comment }}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ng-container>
+                    </ul>
+
+                    <hr class="tall">
+                    <h4>Thêm nhận xét</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="form" (ngSubmit)="submitForm()">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <textarea maxlength="5000" rows="5" class="form-control" formControlName="comment"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="loginService.isUserLoggedIn();then content else other_content"></div>
+                                <ng-template #content>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="submit" value="Submit" class="btn btn-primary">
+                                        </div>
+                                    </div>
+                                </ng-template>
+                                <ng-template #other_content>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary" onclick="alert('Please log in to comment')">Submit</button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
