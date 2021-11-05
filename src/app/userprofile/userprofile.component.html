@@ -4,13 +4,37 @@
 
         <div class="col-md-12">
             <div *ngIf="user" class="row">
-                <form [formGroup]="form" (ngSubmit)="submitForm()">
-                    <div class="col-md-6">
+                <div class="col-md-6">
+                    <div class="row">
                         <div class="form-group">
                             <label>Profile:</label>
                         </div>
                         <img class="img-thumbnail img-thumbnail-medium img-responsive" alt="" src="{{avatarURL + 'default.jpg'}}">
                     </div>
+                    <br>
+                    <div *ngIf="loginService.isUserAdmin()" class="row">
+                        
+                        <form>
+                            <div class="form-group">
+                                <label>Backup:</label>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <mat-form-field>
+                                                <input matInput placeholder="Filename" [(ngModel)]="backupName" name="backupName" required>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <p *ngIf="error" class="error">
+                                        {{ error }}
+                                    </p>
+                                </table>
+                            </div>
+                        </form>
+                        <button class="btn btn-primary" style="margin-right: 5px;" (click)="backupSystem()">Backup</button>
+                    </div>
+                </div>
+                <form [formGroup]="form" (ngSubmit)="submitForm()">
                     <div class="col-md-6">
                         <div class="row">
                             <div class="form-group">
@@ -22,7 +46,6 @@
                             <div class="form-group">
                                 <label>Password:</label>
                                 <input type="password" name="password" formControlName="password" class="form-control">
-                                <p *ngIf="form.get('password').hasError('required')" style="color: red;"> Password is required </p>
                             </div>
                         </div>
                         <div class="row">
@@ -32,7 +55,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <input type="submit" value="Submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                            <input type="submit" value="Submit" class="btn btn-primary">
                         </div>
                     </div>
                 </form>

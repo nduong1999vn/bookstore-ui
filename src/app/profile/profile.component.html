@@ -6,23 +6,25 @@
             <div *ngIf="user" class="row">
                 <form [formGroup]="form" (ngSubmit)="submitForm()">
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Profile:</label>
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Profile:</label>
+                            </div>
+                            <img class="img-thumbnail img-thumbnail-medium img-responsive" alt="" src="{{avatarURL + 'default.jpg'}}">
                         </div>
-                        <img class="img-thumbnail img-thumbnail-medium img-responsive" alt="" src="{{avatarURL + 'default.jpg'}}">
+
                     </div>
                     <div class="col-md-6">
                         <div class="row">
                             <div class="form-group">
                                 <label>Username:</label>
-                                <input type="text" name="username" formControlName="username" class="form-control" [defaultValue]="user.username" readonly="true">
+                                <input type="text" name="username" formControlName="username" class="form-control" [defaultValue]="user.username">
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group">
                                 <label>Password:</label>
                                 <input type="password" name="password" formControlName="password" class="form-control">
-                                <p *ngIf="form.get('password').hasError('required')" style="color: red;"> Password is required </p>
                             </div>
                         </div>
                         <div class="row">
@@ -42,7 +44,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <input type="submit" value="Submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                            <input type="submit" value="Submit" class="btn btn-primary">
                         </div>
                     </div>
                 </form>

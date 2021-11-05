@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClientService, User } from "../service/httpclient.service";
 import { environment } from 'src/environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -11,6 +11,9 @@ import { AuthenticationService } from '../service/authentication.service';
   styleUrls: ['./userprofile.component.css']
 })
 export class UserprofileComponent implements OnInit {
+  backupName: String;
+  invalidName = false;
+  @Input() error: string | null;
 
   public user: User;
   public id: string;
@@ -27,7 +30,7 @@ export class UserprofileComponent implements OnInit {
     ) { 
       this.form = this.fb.group({
         username: [''],
-        password: ['', Validators.required],
+        password: [''],
         role: ['']
       })
     }
@@ -67,7 +70,27 @@ export class UserprofileComponent implements OnInit {
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate(['/profile']);
     });
+  }
 
+  backupSystem() {
+    console.log(this.backupName);
+    if (this.loginService.isUserAdmin()) {
+      (this.httpClientService.backupSystem(this.backupName).subscribe(
+        data => {
+          alert("Backup successfully as " + this.backupName)
+          this.router.navigate([''])
+          this.invalidName = false
+        },
+        error => {
+          this.invalidName = true
+          this.error = error.message;
+          if (error.status == 401) {
+            this.error = "Unauthorized";
+          }
+        }
+      )
+      );
+    }
   }
 }
 

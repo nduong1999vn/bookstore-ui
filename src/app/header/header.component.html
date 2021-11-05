@@ -9,13 +9,13 @@
 
         <button mat-button routerLink="/help">Help</button>
         <button mat-button routerLink="/about">About us</button>
-
+        
         <button mat-button *ngIf="loginService.isUserAdmin()" routerLink="/admin/users">User list</button>
+        
         <button mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/profile">My Profile</button>
         <button mat-button *ngIf="!loginService.isUserLoggedIn()" routerLink="/login">Login</button>
         <button mat-button *ngIf="loginService.isUserLoggedIn()" routerLink="/logout">LogOut</button>
     </div>
-
   </mat-toolbar>
 
   

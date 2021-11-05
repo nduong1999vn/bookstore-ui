@@ -13,6 +13,7 @@ import { AuthenticationService } from '../service/authentication.service';
 export class ProfileComponent implements OnInit {
   public user: User;
   public id: string;
+  
   avatarURL = environment.avatarURL;
   
   public form: FormGroup;
@@ -26,7 +27,7 @@ export class ProfileComponent implements OnInit {
     ) { 
       this.form = this.fb.group({
         username: [''],
-        password: ['', Validators.required],
+        password: [''],
         role: ['']
       })
     }
@@ -55,7 +56,7 @@ export class ProfileComponent implements OnInit {
     }
     var formData: any = new FormData();
 
-    formData.append("username", this.user.username);
+    formData.append("username", this.form.get('username').value);
     formData.append("password", this.form.get('password').value);
     formData.append("role", this.form.get('role').value);
     console.log(this.form.get('password').value);
@@ -66,6 +67,7 @@ export class ProfileComponent implements OnInit {
       this.router.onSameUrlNavigation = 'reload';
       this.router.navigate(['/admin/users']);
     });
-
   }
+
+
 }

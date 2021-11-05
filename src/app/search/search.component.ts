@@ -44,8 +44,9 @@ export class SearchComponent implements OnInit {
 
   submitForm(): void {
     this.keyword = this.form.get('keyword').value
-    
-    this.router.navigate(['/book'], { queryParams: { keyword: this.keyword }});
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/search'], { queryParams: { keyword: this.keyword }});
 
   }
 }

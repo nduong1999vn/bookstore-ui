@@ -100,4 +100,10 @@ export class HttpClientService {
       employee
     );
   }
+
+  public backupSystem(name) {
+    return this.httpClient.get<User>(
+      "http://localhost:8080/backup/" + name
+    );
+  }
 }
